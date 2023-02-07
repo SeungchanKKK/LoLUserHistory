@@ -17,4 +17,22 @@ public class Match {
     @JoinColumn(name = "summonerId")
     @JsonBackReference(value = "")
     private Summoner summoner;
+
+    @Column
+    private Integer aveKill;
+
+    @Column
+    private Integer aveAssist;
+
+    @Column
+    private Integer aveDeath;
+
+    @Column
+    private Integer aveGoldAttain;
+
+    @Column
+    private Integer aveVisionScore;
+
+    @Column
+    private String gameLast;
 }
