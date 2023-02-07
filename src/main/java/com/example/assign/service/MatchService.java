@@ -35,6 +35,7 @@ public class MatchService {
                 .summoner(summoner)
                 .gameLast(matchDto.info().gameDuration())
                 .build();
+        matchRepository.save(match);
         int totalKills=0;
         int totalDeath=0;
         int totalAssist=0;
@@ -62,7 +63,8 @@ public class MatchService {
                     .build();
             matchPlayerRepository.save(matchPlayer);
         }
-        match.getAveValue(totalKills/10,totalAssist/10,totalDeath/10,totalGoldEarned/10,totalVisionScore/10);
-        matchRepository.save(match);
+        Match match1=matchRepository.findMatchByMatchId(matchId).orElseThrow(() -> new NullPointerException("경기를 찾을수없습니다"));
+        match1.getAveValue(totalKills/10,totalAssist/10,totalDeath/10,totalGoldEarned/10,totalVisionScore/10);
+        matchRepository.save(match1);
     }
 }

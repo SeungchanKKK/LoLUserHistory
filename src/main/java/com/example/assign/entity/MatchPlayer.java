@@ -52,7 +52,7 @@ public class MatchPlayer {
     private String lane;
 
     @Builder
-    public MatchPlayer(Long id, String summonerName, int teamId, boolean win, Match match, Integer kill, Integer assist, Integer death, Integer goldAttain, Integer visionScore, String champion, String lane) {
+    public MatchPlayer(Long id, String summonerName, int teamId, boolean win, Match match, int kill, int assist, int death, int goldAttain, int visionScore, String champion, String lane) {
         this.id = id;
         this.summonerName = summonerName;
         this.teamId = teamId;
