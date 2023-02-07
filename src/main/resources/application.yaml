@@ -16,7 +16,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create # 실행할때 마다 테이블을 새로 만들겠다는 뜻! 최초에만 create => 후엔 update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -25,7 +25,7 @@ spring:
 
 riot:
   api:
-    key: ENC(KflfHcnp/aciWUdD4Nx1WHijFu4XFwAxzTeIZV/Bb8GgnJbB5/KlXKtyxF+3E9vdu8sxIQw3zS4=)
+    key: ENC(vtzgWQRmgbuuHcOg0z48XgOkQHXAqjyvNQCvfqEVwSNldxJO4pGrFZ2tkg/zw/8Uw2V8ylsZP7s=)
     ##riot key 입력
 
 server:
@@ -34,7 +34,7 @@ server:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-
-
-
-
+    property:
+      prefix: ENC(
+      suffix: )
+---
