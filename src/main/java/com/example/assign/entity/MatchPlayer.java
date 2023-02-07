@@ -59,10 +59,10 @@ public class MatchPlayer {
         this.win = win;
         this.match = match;
         this.kill = kill;
-        Assist = assist;
-        Death = death;
-        GoldAttain = goldAttain;
-        VisionScore = visionScore;
+        this.Assist = assist;
+        this.Death = death;
+        this.GoldAttain = goldAttain;
+        this.VisionScore = visionScore;
         this.champion = champion;
         this.lane = lane;
     }

@@ -17,12 +17,14 @@ import java.util.List;
 public class RiotApiService {
     @Value("${riot.api.key}")
     private String API_KEY;
+
     // summoner-v4 /lol/summoner/v4/summoners/by-name/{summonerName}
     private static final String SUMMONER_DATA_RIOT_URL = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
     // match-v5 /lol/match/v5/matches/by-puuid/{puuid}/ids
     private static final String MATCH_ID_RIOT_URL = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/";
     // match-v5 /lol/match/v5/matches/{matchId}
     private static final String MATCH_DATA_RIOT_URL = "https://asia.api.riotgames.com/lol/match/v5/matches/";
+
 
     // summoner-v4 /lol/summoner/v4/summoners/by-name/{summonerName}
     //소환사이름으로 puuid, encryptid 등 찾기

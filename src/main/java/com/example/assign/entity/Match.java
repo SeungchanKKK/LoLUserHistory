@@ -17,6 +17,9 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String matchId;
+
     @ManyToOne
     @JoinColumn(name = "summonerId")
     @JsonBackReference(value = "")
@@ -46,8 +49,9 @@ public class Match {
     private List<MatchPlayer> matchPlayers;
 
     @Builder
-    public Match(Long id, Summoner summoner, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, String gameLast, List<MatchPlayer> matchPlayers) {
+    public Match(Long id,String matchId, Summoner summoner, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, String gameLast, List<MatchPlayer> matchPlayers) {
         this.id = id;
+        this.matchId = matchId;
         this.summoner = summoner;
         this.aveKill = aveKill;
         this.aveAssist = aveAssist;

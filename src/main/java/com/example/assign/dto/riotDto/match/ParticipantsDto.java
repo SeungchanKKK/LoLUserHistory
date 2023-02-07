@@ -13,6 +13,8 @@ public record ParticipantsDto(
 	int deaths,
 	int assists,
 	boolean win,
+	int visionScore,
+	int goldEarned,
 	List<TeamsDto> teams
 
 ) {
