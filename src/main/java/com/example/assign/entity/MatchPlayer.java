@@ -1,6 +1,7 @@
 package com.example.assign.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class MatchPlayer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,5 +50,21 @@ public class MatchPlayer {
 
     @Column
     private String lane;
+
+    @Builder
+    public MatchPlayer(Long id, String summonerName, int teamId, boolean win, Match match, Integer kill, Integer assist, Integer death, Integer goldAttain, Integer visionScore, String champion, String lane) {
+        this.id = id;
+        this.summonerName = summonerName;
+        this.teamId = teamId;
+        this.win = win;
+        this.match = match;
+        this.kill = kill;
+        Assist = assist;
+        Death = death;
+        GoldAttain = goldAttain;
+        VisionScore = visionScore;
+        this.champion = champion;
+        this.lane = lane;
+    }
 
 }

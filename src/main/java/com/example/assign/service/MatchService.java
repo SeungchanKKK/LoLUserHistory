@@ -1,6 +1,8 @@
 package com.example.assign.service;
 
 import com.example.assign.dto.riotDto.match.MatchDto;
+import com.example.assign.dto.riotDto.match.ParticipantsDto;
+import com.example.assign.entity.Match;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,10 @@ public class MatchService {
     //matchid 로 match 데이터를 저장하는로직입니다
     public void saveMatch(String matchId){
         MatchDto matchDto = riotApiService.getMatchData(matchId);
+        List<ParticipantsDto> participantsDto = matchDto.info().participants();
+        for(ParticipantsDto participant:participantsDto){
 
+        }
         System.out.println(matchDto);
     }
 }

@@ -52,10 +52,4 @@ public class Summoner {
         this.encryptedId = encryptedId;
         this.accountId =accountId;
     }
-
-    public void resetData(String winningRate, Integer win,Integer loss) {
-        this.win = win;
-        this.loss = loss;
-        this.winningRate = winningRate;
-    }
 }
