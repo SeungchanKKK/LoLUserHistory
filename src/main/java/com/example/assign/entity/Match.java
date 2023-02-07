@@ -1,9 +1,11 @@
 package com.example.assign.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,4 +37,9 @@ public class Match {
 
     @Column
     private String gameLast;
+
+    @Column
+    @OneToMany(mappedBy = "match")
+    @JsonManagedReference(value = "matchPlayer-match-FK")
+    private List<MatchPlayer> matchPlayers;
 }
