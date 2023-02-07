@@ -41,7 +41,7 @@ public class Match {
     private Integer aveVisionScore;
 
     @Column
-    private String gameLast;
+    private long gameLast;
 
     @Column
     @OneToMany(mappedBy = "match")
@@ -49,7 +49,7 @@ public class Match {
     private List<MatchPlayer> matchPlayers;
 
     @Builder
-    public Match(Long id,String matchId, Summoner summoner, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, String gameLast, List<MatchPlayer> matchPlayers) {
+    public Match(Long id,String matchId, Summoner summoner, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, long gameLast, List<MatchPlayer> matchPlayers) {
         this.id = id;
         this.matchId = matchId;
         this.summoner = summoner;
@@ -60,5 +60,13 @@ public class Match {
         this.aveVisionScore = aveVisionScore;
         this.gameLast = gameLast;
         this.matchPlayers = matchPlayers;
+    }
+
+    public void getAveValue(Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore){
+        this.aveKill = aveKill;
+        this.aveAssist = aveAssist;
+        this.aveDeath = aveDeath;
+        this.aveGoldAttain = aveGoldAttain;
+        this.aveVisionScore = aveVisionScore;
     }
 }

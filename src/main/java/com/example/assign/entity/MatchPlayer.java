@@ -31,19 +31,19 @@ public class MatchPlayer {
     private Match match;
 
     @Column
-    private Integer kill;
+    private int kill;
 
     @Column
-    private Integer Assist;
+    private int Assist;
 
     @Column
-    private Integer Death;
+    private int Death;
 
     @Column
-    private Integer GoldAttain;
+    private int GoldAttain;
 
     @Column
-    private Integer VisionScore;
+    private int VisionScore;
 
     @Column
     private String champion;
