@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active:
+    default: local
+  h2:
+    console:
+      enabled: true  # H2 Console을 사용할지 여부 (H2 Cobnsole은 H2 Dataase를 UI로 제공해주는 기능)
+      path: /h2-console  # H2 Console의 Path
+  # Database Setting Info (Database를 H2로 사용하기 위해 H2연결 정보 입력)
+  datasource:
+    driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
+    url: jdbc:h2:~/test  # H2 접속 정보
+    username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+    password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력) ''
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create # 실행할때 마다 테이블을 새로 만들겠다는 뜻! 최초에만 create => 후엔 update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+riot:
+  api:
+    key: ENC(KflfHcnp/aciWUdD4Nx1WHijFu4XFwAxzTeIZV/Bb8GgnJbB5/KlXKtyxF+3E9vdu8sxIQw3zS4=)
+    ##riot key 입력
+
+server:
+  port: 8080
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+
+
+
