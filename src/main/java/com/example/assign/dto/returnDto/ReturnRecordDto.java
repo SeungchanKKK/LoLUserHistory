@@ -23,7 +23,7 @@ public class ReturnRecordDto {
     int GoldScore;
     float totalScore;
 
-    public ReturnRecordDto(List<MemberDto> teams, MatchPlayer player,) {
+    public ReturnRecordDto(List<MemberDto> teams, MatchPlayer player) {
         this.champion = player.getChampion();
         this.kill = player.getKill();
         this.death = player.getDeath();

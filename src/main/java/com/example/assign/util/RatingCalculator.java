@@ -29,7 +29,21 @@ public class RatingCalculator {
         if(team==100){
             float teamKDA=(match.getAveKill()+match.getAveAssist())/(float)match.getAveDeath();
             float hisKDA=(matchPlayer.getKill()+matchPlayer.getAssist())/(float)matchPlayer.getAssist();
-
+            float Score = KDASigmoid(hisKDA/teamKDA);
+            return (int) Score;
+        }else {
+            float teamKDA=(match.getAveKill2()+match.getAveAssist2())/(float)match.getAveDeath2();
+            float hisKDA=(matchPlayer.getKill()+matchPlayer.getAssist())/(float)matchPlayer.getAssist();
+            float Score = KDASigmoid(hisKDA/teamKDA);
+            return (int) Score;
         }
     }
+
+    public float KDASigmoid(float x){
+        float k = (float) 1.8;
+        float y = (float) (100*(1/(1+Math.pow((Math.E),-(x-1)*k))));
+        return y;
+    }
+
+
 }
