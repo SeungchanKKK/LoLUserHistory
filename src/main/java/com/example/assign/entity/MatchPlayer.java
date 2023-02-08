@@ -1,5 +1,6 @@
 package com.example.assign.entity;
 
+import com.example.assign.dto.riotDto.match.ParticipantsDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,20 +52,18 @@ public class MatchPlayer {
     @Column
     private String lane;
 
-    @Builder
-    public MatchPlayer(Long id, String summonerName, int teamId, boolean win, Match match, int kill, int assist, int death, int goldAttain, int visionScore, String champion, String lane) {
-        this.id = id;
-        this.summonerName = summonerName;
-        this.teamId = teamId;
-        this.win = win;
+    public MatchPlayer(ParticipantsDto participantsDto,Match match) {
+        this.summonerName = participantsDto.summonerName();
+        this.teamId = participantsDto.teamId();
+        this.win = participantsDto.win();
         this.match = match;
-        this.kill = kill;
-        this.Assist = assist;
-        this.Death = death;
-        this.GoldAttain = goldAttain;
-        this.VisionScore = visionScore;
-        this.champion = champion;
-        this.lane = lane;
+        this.kill = participantsDto.kills();
+        this.Assist = participantsDto.assists();
+        this.Death = participantsDto.deaths();
+        this.GoldAttain = participantsDto.goldEarned();
+        this.VisionScore = participantsDto.visionScore();
+        this.champion = participantsDto.championName();
+        this.lane = participantsDto.lane();
     }
 
 }
