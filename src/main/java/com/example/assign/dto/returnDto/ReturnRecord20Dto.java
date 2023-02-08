@@ -5,15 +5,20 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Builder
 @Getter
 @RequiredArgsConstructor
 public class ReturnRecord20Dto {
-    public ReturnRecord20Dto(Summoner summoner, int matchcnt) {
-        this.summoner = summoner;
-        this.matchcnt = matchcnt;
-    }
 
-    Summoner summoner;
-    int matchcnt;
+    String summonerName;
+    String winRate;
+    String aveScore;
+    float aveKills;
+    float aveDeath;
+    float aveAssist;
+    List<ReturnRecordDto>returnRecordDtos= new ArrayList<>();
+
 }
