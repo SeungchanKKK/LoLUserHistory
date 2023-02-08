@@ -7,9 +7,12 @@ import com.example.assign.entity.MatchPlayer;
 import com.example.assign.entity.Summoner;
 import com.example.assign.repository.MatchPlayerRepository;
 import com.example.assign.repository.MatchRepository;
+import com.example.assign.repository.SummonerRepository;
+import com.example.assign.util.AverageCalculator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,53 +21,58 @@ public class MatchService {
     private final RiotApiService riotApiService;
     private final MatchRepository matchRepository;
     private final MatchPlayerRepository matchPlayerRepository;
-    //puuid 의 소환사의 20게임을 저장하는 로직입니다.
+
+    private final SummonerRepository summonerRepository;
+
+    //puuid 의 소환사의 20게임을 저장하는 메서드입니다.
     public void saveMatch20( Summoner summoner){
         //Summoner 기준으로 Matchid List를 가져오는 api 호출
-        List<String>matchIdList = riotApiService.getMatchIdList(summoner.getPuuid());
-
-        for (String matchId : matchIdList){
+        List<String>newmatchIdList = riotApiService.getMatchIdList(summoner.getPuuid());
+        //현재 가지고있는 리스트 조회
+        List<Match>currentList = summoner.getMatchList();
+        // 새로운 20게임중에 이미 가지고있는 게임들은 리스트에서 삭제
+        for (Match hasList :currentList){
+            if(newmatchIdList.contains(hasList.getMatchId())){
+                newmatchIdList.remove(hasList.getMatchId());
+            }
+        }
+        //새로추가해야할 게임들만 추가함
+        for (String matchId : newmatchIdList){
             saveMatch(matchId,summoner);
         }
     }
-    //matchid 로 match 데이터를 저장하는로직입니다
+
+    //matchid 로 match 데이터를 저장하는메서드입니다
     public void saveMatch(String matchId,Summoner summoner){
+        //matchId 로 riot api 호출
         MatchDto matchDto = riotApiService.getMatchData(matchId);
         Match match = Match.builder()
                 .matchId(matchId)
-                .summoner(summoner)
                 .gameLast(matchDto.info().gameDuration())
                 .build();
         matchRepository.save(match);
-        int totalKills=0;
-        int totalDeath=0;
-        int totalAssist=0;
-        int totalGoldEarned=0;
-        int totalVisionScore=0;
+        AverageCalculator averageCalculator = new AverageCalculator();
         List<ParticipantsDto> participantsDto = matchDto.info().participants();
+        List<MatchPlayer>matchPlayers = new ArrayList<>();
         for(ParticipantsDto participant:participantsDto){
-            totalKills+=participant.kills();
-            totalDeath+=participant.deaths();
-            totalAssist+=participant.assists();
-            totalGoldEarned+=participant.goldEarned();
-            totalVisionScore+=participant.visionScore();
-            MatchPlayer matchPlayer =MatchPlayer.builder()
-                    .summonerName(participant.summonerName())
-                    .teamId(participant.teamId())
-                    .kill(participant.kills())
-                    .death(participant.deaths())
-                    .assist(participant.deaths())
-                    .visionScore(participant.visionScore())
-                    .champion(participant.championName())
-                    .win(participant.win())
-                    .goldAttain(participant.goldEarned())
-                    .match(match)
-                    .lane(participant.lane())
-                    .build();
+            if(participant.teamId()==100){
+                averageCalculator.addTeam1(participant);
+            }else {
+                averageCalculator.addTeam2(participant);
+            }
+            MatchPlayer matchPlayer = new MatchPlayer(participant,match);
+            matchPlayers.add(matchPlayer);
             matchPlayerRepository.save(matchPlayer);
         }
-        Match match1=matchRepository.findMatchByMatchId(matchId).orElseThrow(() -> new NullPointerException("경기를 찾을수없습니다"));
-        match1.getAveValue(totalKills/10,totalAssist/10,totalDeath/10,totalGoldEarned/10,totalVisionScore/10);
-        matchRepository.save(match1);
+        Match findMatch=matchRepository.findMatchByMatchId(matchId).orElseThrow(() -> new NullPointerException("경기를 찾을수없습니다"));
+        averageCalculator.getAve();
+        findMatch.getAveValue(averageCalculator);
+        findMatch.addPlayers(matchPlayers);
+        matchRepository.save(findMatch);
+        if(summoner.getMatchList().size()>=20){
+            summoner.getMatchList().remove(0);
+        }
+        summoner.getMatchList().add(findMatch);
+        summonerRepository.save(summoner);
     }
 }
