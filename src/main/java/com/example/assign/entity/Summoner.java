@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 @Getter
 @NoArgsConstructor
@@ -21,15 +23,6 @@ public class Summoner {
     private String summonerName;
 
     @Column
-    private Integer win;
-
-    @Column
-    private Integer loss;
-
-    @Column
-    private String winningRate;
-
-    @Column
     private String puuid;
 
     @Column
@@ -38,9 +31,10 @@ public class Summoner {
     @Column
     private String accountId;
 
-    @OneToMany(mappedBy = "summoner")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "match_id")
     @JsonManagedReference(value = "match-summoner-FK")
-    private List<Match> matchList;
+    private List<Match> matchList= new ArrayList<>();
 
     @Builder
     public Summoner(String summonerName,  String encryptedId,String accountId,String puuid) {
