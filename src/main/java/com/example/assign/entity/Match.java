@@ -95,6 +95,15 @@ public class Match {
         this.aveVisionScore2 = averageCalculator.getAveVisionScore2();
     }
 
+    public MatchPlayer findSummoner(String summonerName){
+        for(MatchPlayer matchPlayer:this.matchPlayers){
+            if(matchPlayer.getSummonerName().equals(summonerName)){
+                return matchPlayer;
+            }
+        }
+        return null;
+    }
+
     public void addPlayers(List<MatchPlayer>matchPlayers){
         this.matchPlayers =matchPlayers;
     }

@@ -67,6 +67,7 @@ public class MatchService {
                 .gameLast(matchDto.info().gameDuration())
                 .build();
         matchRepository.save(match);
+
         AverageCalculator averageCalculator = new AverageCalculator();
         List<ParticipantsDto> participantsDto = matchDto.info().participants();
         List<MatchPlayer>matchPlayers = new ArrayList<>();
