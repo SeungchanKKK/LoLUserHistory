@@ -30,6 +30,21 @@ public class MatchService {
         List<String>newmatchIdList = riotApiService.getMatchIdList(summoner.getPuuid());
         //현재 가지고있는 리스트 조회
         List<Match>currentList = summoner.getMatchList();
+        List<String>exists = new ArrayList<>();
+        //db에 이미 존재하는 게임은 추가하지않습니다
+        for (String newmatchId:newmatchIdList){
+            if(matchRepository.existsMatchByMatchId(newmatchId)){
+                exists.add(newmatchId);
+                Match match = matchRepository.findMatchByMatchId(newmatchId).orElseThrow(() -> new NullPointerException("경기를 찾을수없습니다"));
+                if(!summoner.getMatchList().contains(match)){
+                    summoner.getMatchList().add(match);
+                    summonerRepository.save(summoner);
+                }
+            }
+        }
+        for(String exist: exists){
+            newmatchIdList.remove(exist);
+        }
         // 새로운 20게임중에 이미 가지고있는 게임들은 리스트에서 삭제
         for (Match hasList :currentList){
             if(newmatchIdList.contains(hasList.getMatchId())){
@@ -47,6 +62,7 @@ public class MatchService {
         //matchId 로 riot api 호출
         MatchDto matchDto = riotApiService.getMatchData(matchId);
         Match match = Match.builder()
+                .gameCreation(matchDto.info().gameCreation())
                 .matchId(matchId)
                 .gameLast(matchDto.info().gameDuration())
                 .build();

@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface MatchRepository extends JpaRepository<Match, Long> {
     Optional<Match>findMatchByMatchId(String matchId);
+    boolean existsMatchByMatchId(String matchId);
 }

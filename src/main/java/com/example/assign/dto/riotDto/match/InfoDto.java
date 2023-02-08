@@ -6,6 +6,8 @@ public record InfoDto(
 	String gameMode,
 
 	long gameDuration,
+
+	long gameCreation,
 	List<ParticipantsDto> participants
 
 ) {
