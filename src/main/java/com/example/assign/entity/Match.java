@@ -20,6 +20,9 @@ public class Match {
     private Long id;
 
     @Column
+    private Long gameCreation;
+
+    @Column
     private String matchId;
 
     @Column
@@ -61,8 +64,9 @@ public class Match {
     private List<MatchPlayer> matchPlayers = new ArrayList<>();
 
     @Builder
-    public Match(Long id,String matchId, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, Integer aveKill2, Integer aveAssist2, Integer aveDeath2, Integer aveGoldAttain2, Integer aveVisionScore2, long gameLast, List<MatchPlayer> matchPlayers) {
+    public Match(Long id,Long gameCreation,String matchId, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, Integer aveKill2, Integer aveAssist2, Integer aveDeath2, Integer aveGoldAttain2, Integer aveVisionScore2, long gameLast, List<MatchPlayer> matchPlayers) {
         this.id = id;
+        this.gameCreation = gameCreation;
         this.matchId = matchId;
         this.aveKill = aveKill;
         this.aveAssist = aveAssist;
