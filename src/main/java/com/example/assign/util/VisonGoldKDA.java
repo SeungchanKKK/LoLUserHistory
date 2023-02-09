@@ -9,5 +9,6 @@ public class VisonGoldKDA {
     int KDAScore;
     int VisionScore;
     int growthScore;
+    int combatScore;
     float duty;
 }

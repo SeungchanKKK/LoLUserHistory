@@ -46,6 +46,9 @@ public class MatchPlayer {
     private int VisionScore;
 
     @Column
+    private int dealtToChamp;
+
+    @Column
     private String champion;
 
     @Column
@@ -59,6 +62,7 @@ public class MatchPlayer {
         this.kill = participantsDto.kills();
         this.Assist = participantsDto.assists();
         this.Death = participantsDto.deaths();
+        this.dealtToChamp = participantsDto.totalDamageDealtToChampions();
         this.GoldAttain = participantsDto.goldEarned();
         this.VisionScore = participantsDto.visionScore();
         this.champion = participantsDto.championName();

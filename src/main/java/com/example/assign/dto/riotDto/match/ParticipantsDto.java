@@ -15,6 +15,7 @@ public record ParticipantsDto(
 	boolean win,
 	int visionScore,
 	int goldEarned,
+	int totalDamageDealtToChampions,
 	List<TeamsDto> teams
 
 ) {

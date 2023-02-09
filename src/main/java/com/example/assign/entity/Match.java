@@ -56,6 +56,9 @@ public class Match implements Comparable<Match> {
     private Integer aveVisionScore;
 
     @Column
+    private Integer aveDealtToChamp;
+
+    @Column
     private float aveKill2;
 
     @Column
@@ -69,6 +72,9 @@ public class Match implements Comparable<Match> {
 
     @Column
     private Integer aveVisionScore2;
+
+    @Column
+    private Integer aveDealtToChamp2;
 
     @Column
     private long gameduration;
@@ -96,6 +102,8 @@ public class Match implements Comparable<Match> {
         this.aveDeath2 = averageCalculator.getAveDeath2();
         this.aveGoldAttain2 = averageCalculator.getAveGoldEarn2();
         this.aveVisionScore2 = averageCalculator.getAveVisionScore2();
+        this.aveDealtToChamp = averageCalculator.getAveDealt();
+        this.aveDealtToChamp2 = averageCalculator.getAveDealt2();
     }
 
     public MatchPlayer findSummoner(String summonerName){
