@@ -1,6 +1,7 @@
 package com.example.assign.util;
 
 import com.example.assign.dto.riotDto.match.ParticipantsDto;
+import com.example.assign.entity.MatchPlayer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,9 @@ public class AverageCalculator {
     int totalAssist2=0;
     int totalGoldEarned2=0;
     int totalVisionScore2=0;
-
+    float totalKDA =0;
+    int totalWin=0;
+    float totalScore =0;
     int AveKills = 0;
     int AveDeath = 0;
     int AveAssist = 0;
@@ -28,7 +31,9 @@ public class AverageCalculator {
     int AveAssist2 = 0;
     int AveVisionScore2 = 0;
     int AveGoldEarn2 = 0;
-
+    float AveKDA =0;
+    float WinningRate=0;
+    float AveScore=0;
     public void addTeam1(ParticipantsDto participantsDto){
         this.totalKills += participantsDto.kills();
         this.totalDeath+=participantsDto.deaths();
@@ -44,16 +49,30 @@ public class AverageCalculator {
         this.totalGoldEarned2+=participantsDto.goldEarned();
     }
     public void getAve(){
-        this.AveKills=totalKills/10;
-        this.AveDeath=totalDeath/10;
-        this.AveAssist=totalAssist/10;
-        this.AveVisionScore=totalVisionScore/10;
-        this.AveGoldEarn=totalGoldEarned/10;
-        this.AveKills2=totalKills2/10;
-        this.AveDeath2=totalDeath2/10;
-        this.AveAssist2=totalAssist2/10;
-        this.AveVisionScore2=totalVisionScore2/10;
-        this.AveGoldEarn2=totalGoldEarned2/10;
+        this.AveKills=totalKills/5;
+        this.AveDeath=totalDeath/5;
+        this.AveAssist=totalAssist/5;
+        this.AveVisionScore=totalVisionScore/5;
+        this.AveGoldEarn=totalGoldEarned/5;
+        this.AveKills2=totalKills2/5;
+        this.AveDeath2=totalDeath2/5;
+        this.AveAssist2=totalAssist2/5;
+        this.AveVisionScore2=totalVisionScore2/5;
+        this.AveGoldEarn2=totalGoldEarned2/5;
+    }
 
+    public void addMatchAve(VisonGoldKDA visonGoldKDA, MatchPlayer matchPlayer){
+        float playerKDA = (matchPlayer.getKill()+ matchPlayer.getDeath())/ (float)matchPlayer.getDeath();
+      this.totalKDA += playerKDA;
+        this.totalScore +=visonGoldKDA.totalduty;
+        if(matchPlayer.isWin()){
+            this.totalWin++;
+        }
+    }
+
+    public void getMatchAve(){
+        this.AveKDA = totalKDA/20;
+        this.AveScore = totalScore/20;
+        this.WinningRate = (totalWin*100)/(float)20;
     }
 }

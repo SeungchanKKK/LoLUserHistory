@@ -7,10 +7,14 @@ import com.example.assign.entity.Match;
 import com.example.assign.entity.MatchPlayer;
 import com.example.assign.entity.Summoner;
 import com.example.assign.repository.MatchRepository;
+import com.example.assign.util.AverageCalculator;
+import com.example.assign.util.RatingCalculator;
+import com.example.assign.util.VisonGoldKDA;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,20 +23,24 @@ public class DtoService {
 
     private final MatchRepository matchRepository;
 
-    public ReturnRecord20Dto getReturn20 (Summoner summoner){
-        ReturnRecord20Dto returnRecord20Dto = new ReturnRecord20Dto();
-        List<ReturnRecordDto>recordDtos = new ArrayList<>();
-        List<Match>matches = summoner.getMatchList();
-        for(Match match: matches){
-            ReturnRecordDto recordDto = new ReturnRecordDto();
+    private final RatingCalculator ratingCalculator;
+
+    public ReturnRecord20Dto getReturn20(Summoner summoner) {
+        List<ReturnRecordDto> recordDtos = new ArrayList<>();
+        List<Match> matches = summoner.getMatchList();
+        matches.sort(Collections.reverseOrder());
+        AverageCalculator averageCalculator = new AverageCalculator();
+        for (Match match : matches) {
             List<MemberDto> members = new ArrayList<>();
-            List<MatchPlayer>players = match.getMatchPlayers();
-            for (MatchPlayer player : players){
+            for (MatchPlayer player : match.getMatchPlayers()) {
                 members.add(new MemberDto(player.getSummonerName(), player.getChampion()));
             }
             MatchPlayer player = match.findSummoner(summoner.getSummonerName());
-
+            VisonGoldKDA visonGoldKDA = ratingCalculator.rating(match, player);
+            averageCalculator.addMatchAve(visonGoldKDA, player);
+            recordDtos.add(new ReturnRecordDto(members, player, visonGoldKDA));
         }
-        return null;
+        averageCalculator.getMatchAve();
+        return new ReturnRecord20Dto(summoner.getSummonerName(), averageCalculator, recordDtos);
     }
 }

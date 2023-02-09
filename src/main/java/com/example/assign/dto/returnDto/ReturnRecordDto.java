@@ -1,6 +1,7 @@
 package com.example.assign.dto.returnDto;
 
 import com.example.assign.entity.MatchPlayer;
+import com.example.assign.util.VisonGoldKDA;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,26 +15,27 @@ public class ReturnRecordDto {
     int kill;
     int death;
     int assist;
-    List<MemberDto> teams= new ArrayList<>();
     boolean win;
 
     float KDA;
     int KDAScore;
     int VisionScore;
     int GoldScore;
-    float totalScore;
+    float totalduty;
 
-    public ReturnRecordDto(List<MemberDto> teams, MatchPlayer player) {
+    List<MemberDto> teams= new ArrayList<>();
+
+    public ReturnRecordDto(List<MemberDto> teams, MatchPlayer player, VisonGoldKDA visonGoldKDA) {
         this.champion = player.getChampion();
         this.kill = player.getKill();
         this.death = player.getDeath();
         this.assist = player.getAssist();
         this.teams = teams;
         this.win = player.isWin();
-        this.KDA = getKDA();
-        this.KDAScore = KDAScore;
-        this.VisionScore = visionScore;
-        this.GoldScore = goldScore;
-        this.totalScore = totalScore;
+        this.KDA = (player.getKill()+ player.getAssist())/ (float)player.getDeath();
+        this.KDAScore = visonGoldKDA.getKDAScore();
+        this.VisionScore = visonGoldKDA.getVisionScore();
+        this.GoldScore = visonGoldKDA.getGoldScore();
+        this.totalduty = visonGoldKDA.getTotalduty();
     }
 }

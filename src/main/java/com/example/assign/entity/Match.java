@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Match {
+public class Match implements Comparable<Match> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,16 @@ public class Match {
 
     @Column
     private Long gameCreation;
+
+    @Override
+    public int compareTo(Match match) {
+        if (match.gameCreation < gameCreation) {
+            return 1;
+        } else if (match.gameCreation > gameCreation) {
+            return -1;
+        }
+        return 0;
+    }
 
     @Column
     private String matchId;

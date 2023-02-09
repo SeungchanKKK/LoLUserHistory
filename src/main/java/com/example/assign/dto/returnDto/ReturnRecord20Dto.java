@@ -1,6 +1,6 @@
 package com.example.assign.dto.returnDto;
 
-import com.example.assign.entity.Summoner;
+import com.example.assign.util.AverageCalculator;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,17 +8,21 @@ import lombok.RequiredArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Getter
 @RequiredArgsConstructor
 public class ReturnRecord20Dto {
 
     String summonerName;
-    String winRate;
-    String aveScore;
-    float aveKills;
-    float aveDeath;
-    float aveAssist;
+    float winRate;
+    float aveDuty;
+    float aveKDA;
     List<ReturnRecordDto>returnRecordDtos= new ArrayList<>();
 
+    public ReturnRecord20Dto(String summonerName, AverageCalculator averageCalculator, List<ReturnRecordDto> returnRecordDtos) {
+        this.summonerName = summonerName;
+        this.winRate = averageCalculator.getWinningRate();
+        this.aveDuty = averageCalculator.getAveScore();
+        this.aveKDA = averageCalculator.getAveKDA();
+        this.returnRecordDtos = returnRecordDtos;
+    }
 }

@@ -2,48 +2,57 @@ package com.example.assign.util;
 
 import com.example.assign.entity.Match;
 import com.example.assign.entity.MatchPlayer;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RatingCalculator {
-    @Getter
-    @Setter
-    class VisonGoldKDA{
-        int KDAScore;
-        int VisionScore;
-        int GoldScore;
-        float totalScore;
-    }
 
-    public VisonGoldKDA rating(Match match, MatchPlayer matchPlayer){
+    public VisonGoldKDA rating(Match match, MatchPlayer matchPlayer) {
         int team = matchPlayer.getTeamId();
         VisonGoldKDA visonGoldKDA = new VisonGoldKDA();
-        visonGoldKDA.setKDAScore(KDAScore(match,matchPlayer,team));
-        visonGoldKDA.setVisionScore();
-        visonGoldKDA.setGoldScore();
-        visonGoldKDA.setTotalScore();
+        visonGoldKDA.setKDAScore(KDAScore(match, matchPlayer, team));
+        visonGoldKDA.setGoldScore(ScoreMachine(matchPlayer.getGoldAttain(), match.getAveGoldAttain(), match.getAveGoldAttain2(), team, (float) 2.5));
+        visonGoldKDA.setVisionScore(ScoreMachine(matchPlayer.getVisionScore(), match.getAveVisionScore(), match.getAveVisionScore2(), team, (float) 1.3));
+        visonGoldKDA.setTotalduty(totalDuty(visonGoldKDA.KDAScore, visonGoldKDA.VisionScore, visonGoldKDA.GoldScore));
         return visonGoldKDA;
     }
 
-    public int KDAScore(Match match, MatchPlayer matchPlayer, int team){
-        if(team==100){
-            float teamKDA=(match.getAveKill()+match.getAveAssist())/(float)match.getAveDeath();
-            float hisKDA=(matchPlayer.getKill()+matchPlayer.getAssist())/(float)matchPlayer.getAssist();
-            float Score = KDASigmoid(hisKDA/teamKDA);
-            return (int) Score;
-        }else {
-            float teamKDA=(match.getAveKill2()+match.getAveAssist2())/(float)match.getAveDeath2();
-            float hisKDA=(matchPlayer.getKill()+matchPlayer.getAssist())/(float)matchPlayer.getAssist();
-            float Score = KDASigmoid(hisKDA/teamKDA);
-            return (int) Score;
+    public int KDAScore(Match match, MatchPlayer matchPlayer, int team) {
+        float hisKDA = (matchPlayer.getKill() + matchPlayer.getAssist()) / (float) matchPlayer.getAssist();
+        float teamKDA;
+        if (team == 100) {
+            teamKDA = (match.getAveKill() + match.getAveAssist()) / (float) match.getAveDeath();
+        } else {
+            teamKDA = (match.getAveKill2() + match.getAveAssist2()) / (float) match.getAveDeath2();
         }
+        float Score = Sigmoid(hisKDA / teamKDA, (float) 1.8);
+        return (int) Score;
     }
 
-    public float KDASigmoid(float x){
-        float k = (float) 1.8;
-        float y = (float) (100*(1/(1+Math.pow((Math.E),-(x-1)*k))));
+    public int ScoreMachine(int playerValue, int teamvalue1, int teamvalue2, int team, float curve) {
+        float playerAmount = (float) playerValue;
+        float teamAmount;
+        if (team == 100) {
+            teamAmount = (float) teamvalue1;
+        } else {
+            teamAmount = (float) teamvalue2;
+        }
+        float Score = Sigmoid(playerAmount / teamAmount, curve);
+        return (int) Score;
+    }
+
+    public float totalDuty(int KDAScore, int VisionScore, int GoldScore) {
+        float avepoint = (float) (KDAScore + VisionScore + GoldScore) / 3;
+        return TotalSigmoid(avepoint, (float) 0.035);
+    }
+
+    public float Sigmoid(float x, float k) {
+        float y = (float) (100 * (1 / (1 + Math.pow((Math.E), -(x - 1) * k))));
         return y;
     }
 
-
+    public float TotalSigmoid(float x, float k) {
+        float y = (float) (6 * (1 / (1 + Math.pow((Math.E), -(x - 50) * k))) - 2);
+        return y;
+    }
 }
