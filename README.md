@@ -1,6 +1,10 @@
 # YourggAssign
 롤 전적 20게임을 구하는 과제입니다
 
+# Service Flow
+![File](https://user-images.githubusercontent.com/105182277/217821428-ea85edeb-2b46-493d-a6b6-711deca39c7e.jpg)
+
+
 아래의 커밋 컨벤션을 기준으로 진행하였습니다
 ## <b>커밋 컨벤션</b>
 ### 양식
