@@ -13,7 +13,7 @@ public class RatingCalculator {
         visonGoldKDA.setKDAScore(KDAScore(match, matchPlayer, team));
         visonGoldKDA.setGrowthScore(ScoreMachine(matchPlayer.getGoldAttain(), match.getAveGoldAttain(), match.getAveGoldAttain2(), team, (float) 2.5));
         visonGoldKDA.setVisionScore(ScoreMachine(matchPlayer.getVisionScore(), match.getAveVisionScore(), match.getAveVisionScore2(), team, (float) 1.3));
-        visonGoldKDA.setCombatScore(ScoreMachine(matchPlayer.getDealtToChamp(),match.getAveDealtToChamp(),2,100,(float) 1.1));
+        visonGoldKDA.setCombatScore(ScoreMachine(matchPlayer.getDealtToChamp(),match.getAveDealtToChamp(),2,100,(float) 2.5));
         visonGoldKDA.setDuty(totalDuty(visonGoldKDA.KDAScore, visonGoldKDA.VisionScore, visonGoldKDA.growthScore, visonGoldKDA.combatScore));
         return visonGoldKDA;
     }
