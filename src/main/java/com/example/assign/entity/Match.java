@@ -36,13 +36,13 @@ public class Match implements Comparable<Match> {
     private String matchId;
 
     @Column
-    private Integer aveKill;
+    private float aveKill;
 
     @Column
-    private Integer aveAssist;
+    private float aveAssist;
 
     @Column
-    private Integer aveDeath;
+    private float aveDeath;
 
     @Column
     private Integer aveGoldAttain;
@@ -51,13 +51,13 @@ public class Match implements Comparable<Match> {
     private Integer aveVisionScore;
 
     @Column
-    private Integer aveKill2;
+    private float aveKill2;
 
     @Column
-    private Integer aveAssist2;
+    private float aveAssist2;
 
     @Column
-    private Integer aveDeath2;
+    private float aveDeath2;
 
     @Column
     private Integer aveGoldAttain2;
@@ -74,7 +74,7 @@ public class Match implements Comparable<Match> {
     private List<MatchPlayer> matchPlayers = new ArrayList<>();
 
     @Builder
-    public Match(Long id,Long gameCreation,String matchId, Integer aveKill, Integer aveAssist, Integer aveDeath, Integer aveGoldAttain, Integer aveVisionScore, Integer aveKill2, Integer aveAssist2, Integer aveDeath2, Integer aveGoldAttain2, Integer aveVisionScore2, long gameLast, List<MatchPlayer> matchPlayers) {
+    public Match(Long id,Long gameCreation,String matchId, float aveKill, float aveAssist, float aveDeath, Integer aveGoldAttain, Integer aveVisionScore, float aveKill2, float aveAssist2, float aveDeath2, Integer aveGoldAttain2, Integer aveVisionScore2, long gameLast, List<MatchPlayer> matchPlayers) {
         this.id = id;
         this.gameCreation = gameCreation;
         this.matchId = matchId;

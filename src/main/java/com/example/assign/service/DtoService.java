@@ -33,7 +33,7 @@ public class DtoService {
         for (Match match : matches) {
             List<MemberDto> members = new ArrayList<>();
             for (MatchPlayer player : match.getMatchPlayers()) {
-                members.add(new MemberDto(player.getSummonerName(), player.getChampion()));
+                members.add(new MemberDto(player.getSummonerName(), player.getChampion(), player.getTeamId()));
             }
             MatchPlayer player = match.findSummoner(summoner.getSummonerName());
             VisonGoldKDA visonGoldKDA = ratingCalculator.rating(match, player);

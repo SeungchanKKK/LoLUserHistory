@@ -21,9 +21,9 @@ public class AverageCalculator {
     float totalKDA =0;
     int totalWin=0;
     float totalScore =0;
-    int AveKills = 0;
-    int AveDeath = 0;
-    int AveAssist = 0;
+    float AveKills = 0;
+    float AveDeath = 0;
+    float AveAssist = 0;
     int AveVisionScore = 0;
     int AveGoldEarn = 0;
     int AveKills2 = 0;
@@ -49,9 +49,9 @@ public class AverageCalculator {
         this.totalGoldEarned2+=participantsDto.goldEarned();
     }
     public void getAve(){
-        this.AveKills=totalKills/5;
-        this.AveDeath=totalDeath/5;
-        this.AveAssist=totalAssist/5;
+        this.AveKills=(float) totalKills/5;
+        this.AveDeath=(float) totalDeath/5;
+        this.AveAssist=(float) totalAssist/5;
         this.AveVisionScore=totalVisionScore/5;
         this.AveGoldEarn=totalGoldEarned/5;
         this.AveKills2=totalKills2/5;
@@ -65,16 +65,16 @@ public class AverageCalculator {
         this.totalKills+= matchPlayer.getKill();
         this.totalDeath+=matchPlayer.getDeath();
         this.totalAssist+=matchPlayer.getAssist();
-        this.totalScore +=visonGoldKDA.totalduty;
+        this.totalScore +=visonGoldKDA.getDuty();
         if(matchPlayer.isWin()){
             this.totalWin++;
         }
     }
 
     public void getMatchAve(){
-        this.AveKills=totalKills/20;
-        this.AveDeath=totalDeath/20;
-        this.AveAssist=totalAssist/20;
+        this.AveKills=(float) totalKills/20;
+        this.AveDeath=(float) totalDeath/20;
+        this.AveAssist=(float) totalAssist/20;
         this.AveScore = totalScore/20;
         this.WinningRate = (totalWin*100)/(float)20;
     }
