@@ -18,7 +18,7 @@ public class RatingCalculator {
     }
 
     public int KDAScore(Match match, MatchPlayer matchPlayer, int team) {
-        float hisKDA = (matchPlayer.getKill() + matchPlayer.getAssist()) / (float) matchPlayer.getAssist();
+        float hisKDA = (matchPlayer.getKill() + matchPlayer.getAssist()) / (float) matchPlayer.getDeath();
         float teamKDA;
         if (team == 100) {
             teamKDA = (match.getAveKill() + match.getAveAssist()) / (float) match.getAveDeath();
@@ -42,6 +42,9 @@ public class RatingCalculator {
     }
 
     public float totalDuty(int KDAScore, int VisionScore, int GoldScore) {
+        if(VisionScore==0){
+            VisionScore=50;
+        }
         float avepoint = (float) (KDAScore + VisionScore + GoldScore) / 3;
         return TotalSigmoid(avepoint, (float) 0.035);
     }
