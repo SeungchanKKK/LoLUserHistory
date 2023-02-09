@@ -13,7 +13,7 @@ public class RatingCalculator {
         visonGoldKDA.setKDAScore(KDAScore(match, matchPlayer, team));
         visonGoldKDA.setGrowthScore(ScoreMachine(matchPlayer.getGoldAttain(), match.getAveGoldAttain(), match.getAveGoldAttain2(), team, (float) 2.5));
         visonGoldKDA.setVisionScore(ScoreMachine(matchPlayer.getVisionScore(), match.getAveVisionScore(), match.getAveVisionScore2(), team, (float) 1.3));
-        visonGoldKDA.setCombatScore(ScoreMachine(matchPlayer.getDealtToChamp(),match.getAveDealtToChamp(),2,100,(float) 2.2));
+        visonGoldKDA.setCombatScore(ScoreMachine(matchPlayer.getDealtToChamp(),match.getAveDealtToChamp(),2,100,(float) 1.1));
         visonGoldKDA.setDuty(totalDuty(visonGoldKDA.KDAScore, visonGoldKDA.VisionScore, visonGoldKDA.growthScore, visonGoldKDA.combatScore));
         return visonGoldKDA;
     }
@@ -45,6 +45,9 @@ public class RatingCalculator {
     public float totalDuty(int KDAScore, int VisionScore, int GoldScore,int combatScore ) {
         if(VisionScore==0){
             VisionScore=50;
+        }
+        if(combatScore==0){
+            combatScore=50;
         }
         float avepoint = (float) (KDAScore + VisionScore + GoldScore+combatScore) / 4;
         return TotalSigmoid(avepoint, (float) 0.035);
