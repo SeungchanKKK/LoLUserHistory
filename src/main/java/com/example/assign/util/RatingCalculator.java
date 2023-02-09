@@ -11,9 +11,9 @@ public class RatingCalculator {
         int team = matchPlayer.getTeamId();
         VisonGoldKDA visonGoldKDA = new VisonGoldKDA();
         visonGoldKDA.setKDAScore(KDAScore(match, matchPlayer, team));
-        visonGoldKDA.setGoldScore(ScoreMachine(matchPlayer.getGoldAttain(), match.getAveGoldAttain(), match.getAveGoldAttain2(), team, (float) 2.5));
+        visonGoldKDA.setGrowthScore(ScoreMachine(matchPlayer.getGoldAttain(), match.getAveGoldAttain(), match.getAveGoldAttain2(), team, (float) 2.5));
         visonGoldKDA.setVisionScore(ScoreMachine(matchPlayer.getVisionScore(), match.getAveVisionScore(), match.getAveVisionScore2(), team, (float) 1.3));
-        visonGoldKDA.setTotalduty(totalDuty(visonGoldKDA.KDAScore, visonGoldKDA.VisionScore, visonGoldKDA.GoldScore));
+        visonGoldKDA.setDuty(totalDuty(visonGoldKDA.KDAScore, visonGoldKDA.VisionScore, visonGoldKDA.growthScore));
         return visonGoldKDA;
     }
 

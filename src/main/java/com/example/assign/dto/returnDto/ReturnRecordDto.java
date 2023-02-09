@@ -20,8 +20,8 @@ public class ReturnRecordDto {
     float KDA;
     int KDAScore;
     int VisionScore;
-    int GoldScore;
-    float totalduty;
+    int growthScore;
+    float duty;
 
     List<MemberDto> teams= new ArrayList<>();
 
@@ -35,7 +35,7 @@ public class ReturnRecordDto {
         this.KDA = (player.getKill()+ player.getAssist())/ (float)player.getDeath();
         this.KDAScore = visonGoldKDA.getKDAScore();
         this.VisionScore = visonGoldKDA.getVisionScore();
-        this.GoldScore = visonGoldKDA.getGoldScore();
-        this.totalduty = visonGoldKDA.getTotalduty();
+        this.growthScore = visonGoldKDA.getGrowthScore();
+        this.duty = visonGoldKDA.getDuty();
     }
 }

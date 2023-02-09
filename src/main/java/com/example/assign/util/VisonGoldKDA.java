@@ -8,6 +8,6 @@ import lombok.Setter;
 public class VisonGoldKDA {
     int KDAScore;
     int VisionScore;
-    int GoldScore;
-    float totalduty;
+    int growthScore;
+    float duty;
 }
