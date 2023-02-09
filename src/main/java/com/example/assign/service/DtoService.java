@@ -38,7 +38,7 @@ public class DtoService {
             MatchPlayer player = match.findSummoner(summoner.getSummonerName());
             VisonGoldKDA visonGoldKDA = ratingCalculator.rating(match, player);
             averageCalculator.addMatchAve(visonGoldKDA, player);
-            recordDtos.add(new ReturnRecordDto(members, player, visonGoldKDA));
+            recordDtos.add(new ReturnRecordDto(match,members, player, visonGoldKDA));
         }
         averageCalculator.getMatchAve();
         return new ReturnRecord20Dto(summoner.getSummonerName(), averageCalculator, recordDtos);

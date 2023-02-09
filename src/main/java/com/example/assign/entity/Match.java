@@ -21,13 +21,16 @@ public class Match implements Comparable<Match> {
     private Long id;
 
     @Column
-    private Long gameCreation;
+    private long gameEndTimeStamp;
+
+    @Column
+    private String gameMode;
 
     @Override
     public int compareTo(Match match) {
-        if (match.gameCreation < gameCreation) {
+        if (match.gameEndTimeStamp < gameEndTimeStamp) {
             return 1;
-        } else if (match.gameCreation > gameCreation) {
+        } else if (match.gameEndTimeStamp > gameEndTimeStamp) {
             return -1;
         }
         return 0;
@@ -67,7 +70,7 @@ public class Match implements Comparable<Match> {
     private Integer aveVisionScore2;
 
     @Column
-    private long gameLast;
+    private long gameduration;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "matchplayer_id")
@@ -75,9 +78,10 @@ public class Match implements Comparable<Match> {
     private List<MatchPlayer> matchPlayers = new ArrayList<>();
 
     public Match(MatchDto matchDto,String matchId){
-        this.gameCreation=matchDto.info().gameCreation();
+        this.gameEndTimeStamp=matchDto.info().gameEndTimestamp();
+        this.gameMode = matchDto.info().gameMode();
         this.matchId =matchId;
-        this.gameLast = matchDto.info().gameDuration();
+        this.gameduration = matchDto.info().gameDuration();
     }
 
     public void getAveValue(AverageCalculator averageCalculator){

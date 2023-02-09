@@ -1,5 +1,6 @@
 package com.example.assign.dto.returnDto;
 
+import com.example.assign.entity.Match;
 import com.example.assign.entity.MatchPlayer;
 import com.example.assign.util.VisonGoldKDA;
 import lombok.Getter;
@@ -12,6 +13,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReturnRecordDto {
     String champion;
+
+    String gameMode;
+
+    long gameDuration;
+
+    long timeStamp;
     int kill;
     int death;
     int assist;
@@ -25,7 +32,10 @@ public class ReturnRecordDto {
 
     List<MemberDto> teams= new ArrayList<>();
 
-    public ReturnRecordDto(List<MemberDto> teams, MatchPlayer player, VisonGoldKDA visonGoldKDA) {
+    public ReturnRecordDto(Match match, List<MemberDto> teams, MatchPlayer player, VisonGoldKDA visonGoldKDA) {
+        this.gameMode =match.getGameMode();
+        this.gameDuration = match.getGameduration();
+        this.timeStamp = match.getGameEndTimeStamp();
         this.champion = player.getChampion();
         this.kill = player.getKill();
         this.death = player.getDeath();

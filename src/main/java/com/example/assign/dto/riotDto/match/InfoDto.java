@@ -7,7 +7,7 @@ public record InfoDto(
 
 	long gameDuration,
 
-	long gameCreation,
+	long gameEndTimestamp,
 	List<ParticipantsDto> participants
 
 ) {
