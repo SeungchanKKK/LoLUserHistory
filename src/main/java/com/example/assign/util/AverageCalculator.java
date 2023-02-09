@@ -62,8 +62,9 @@ public class AverageCalculator {
     }
 
     public void addMatchAve(VisonGoldKDA visonGoldKDA, MatchPlayer matchPlayer){
-        float playerKDA = (matchPlayer.getKill()+ matchPlayer.getDeath())/ (float)matchPlayer.getDeath();
-      this.totalKDA += playerKDA;
+        this.totalKills+= matchPlayer.getKill();
+        this.totalDeath+=matchPlayer.getDeath();
+        this.totalAssist+=matchPlayer.getAssist();
         this.totalScore +=visonGoldKDA.totalduty;
         if(matchPlayer.isWin()){
             this.totalWin++;
@@ -71,7 +72,9 @@ public class AverageCalculator {
     }
 
     public void getMatchAve(){
-        this.AveKDA = totalKDA/20;
+        this.AveKills=totalKills/20;
+        this.AveDeath=totalDeath/20;
+        this.AveAssist=totalAssist/20;
         this.AveScore = totalScore/20;
         this.WinningRate = (totalWin*100)/(float)20;
     }
