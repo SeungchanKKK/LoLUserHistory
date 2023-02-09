@@ -10,8 +10,11 @@ public class MemberDto {
     String name;
     String champion;
 
-    public MemberDto(String name, String champion) {
+    int team;
+
+    public MemberDto(String name, String champion,int team) {
         this.name = name;
         this.champion = champion;
+        this.team =team;
     }
 }
