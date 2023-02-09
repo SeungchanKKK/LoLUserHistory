@@ -22,11 +22,7 @@ import java.util.List;
 @Service
 public class DtoService {
 
-    private final MatchRepository matchRepository;
-
     private final RatingCalculator ratingCalculator;
-
-    private final TimeCalculator timeCalculator;
 
     public ReturnRecord20Dto getReturn20(Summoner summoner) {
         List<ReturnRecordDto> recordDtos = new ArrayList<>();
