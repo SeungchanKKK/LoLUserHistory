@@ -2,7 +2,6 @@ package com.example.assign.entity;
 
 import com.example.assign.dto.riotDto.match.ParticipantsDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

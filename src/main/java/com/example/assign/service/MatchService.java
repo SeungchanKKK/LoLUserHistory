@@ -61,11 +61,7 @@ public class MatchService {
     public void saveMatch(String matchId,Summoner summoner){
         //matchId 로 riot api 호출
         MatchDto matchDto = riotApiService.getMatchData(matchId);
-        Match match = Match.builder()
-                .gameCreation(matchDto.info().gameCreation())
-                .matchId(matchId)
-                .gameLast(matchDto.info().gameDuration())
-                .build();
+        Match match = new Match(matchDto,matchId);
         matchRepository.save(match);
 
         AverageCalculator averageCalculator = new AverageCalculator();

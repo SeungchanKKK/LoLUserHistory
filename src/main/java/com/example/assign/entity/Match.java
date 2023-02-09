@@ -1,5 +1,6 @@
 package com.example.assign.entity;
 
+import com.example.assign.dto.riotDto.match.MatchDto;
 import com.example.assign.util.AverageCalculator;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
@@ -73,23 +74,10 @@ public class Match implements Comparable<Match> {
     @JsonManagedReference(value = "matchPlayer-match-FK")
     private List<MatchPlayer> matchPlayers = new ArrayList<>();
 
-    @Builder
-    public Match(Long id,Long gameCreation,String matchId, float aveKill, float aveAssist, float aveDeath, Integer aveGoldAttain, Integer aveVisionScore, float aveKill2, float aveAssist2, float aveDeath2, Integer aveGoldAttain2, Integer aveVisionScore2, long gameLast, List<MatchPlayer> matchPlayers) {
-        this.id = id;
-        this.gameCreation = gameCreation;
-        this.matchId = matchId;
-        this.aveKill = aveKill;
-        this.aveAssist = aveAssist;
-        this.aveDeath = aveDeath;
-        this.aveGoldAttain = aveGoldAttain;
-        this.aveVisionScore = aveVisionScore;
-        this.aveKill2 = aveKill2;
-        this.aveAssist2 = aveAssist2;
-        this.aveDeath2 = aveDeath2;
-        this.aveGoldAttain2 = aveGoldAttain2;
-        this.aveVisionScore2 = aveVisionScore2;
-        this.gameLast = gameLast;
-        this.matchPlayers = matchPlayers;
+    public Match(MatchDto matchDto,String matchId){
+        this.gameCreation=matchDto.info().gameCreation();
+        this.matchId =matchId;
+        this.gameLast = matchDto.info().gameDuration();
     }
 
     public void getAveValue(AverageCalculator averageCalculator){
