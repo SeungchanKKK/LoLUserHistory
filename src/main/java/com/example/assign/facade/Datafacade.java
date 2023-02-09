@@ -31,6 +31,7 @@ public class Datafacade {
         Summoner summoner = summonerRepository.findSummonerBySummonerName(summonerName).orElseThrow(() -> new NullPointerException("소환사를 찾을수없습니다"));
         //Summoner가 플레이한 20 판의 Match 를 엔티티에 저장
         matchService.saveMatch20(summoner);
+        //데이터 가공및 Dto생성
         return dtoService.getReturn20(summoner);
     }
 }
