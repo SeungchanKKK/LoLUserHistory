@@ -28,6 +28,12 @@ public class DtoService {
         List<ReturnRecordDto> recordDtos = new ArrayList<>();
         List<Match> matches = summoner.getMatchList();
         matches.sort(Collections.reverseOrder());
+        // dto 리턴값의 평균값을 저장하면서 ListDto에 저장하는 매서드입니다
+        AverageCalculator averageCalculator = getAverageMakeDtos(summoner, recordDtos, matches);
+        return new ReturnRecord20Dto(summoner.getSummonerName(), averageCalculator, recordDtos);
+    }
+
+    private AverageCalculator getAverageMakeDtos(Summoner summoner, List<ReturnRecordDto> recordDtos, List<Match> matches) {
         AverageCalculator averageCalculator = new AverageCalculator();
         for (Match match : matches) {
             List<MemberDto> members = new ArrayList<>();
@@ -40,6 +46,6 @@ public class DtoService {
             recordDtos.add(new ReturnRecordDto(match,members, player, visonGoldKDA));
         }
         averageCalculator.getMatchAve();
-        return new ReturnRecord20Dto(summoner.getSummonerName(), averageCalculator, recordDtos);
+        return averageCalculator;
     }
 }

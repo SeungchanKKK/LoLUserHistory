@@ -30,9 +30,8 @@ public class MatchService {
         List<String> newmatchIdList = riotApiService.getMatchIdList(summoner.getPuuid());
         //현재 가지고있는 리스트 조회
         List<Match> currentList = summoner.getMatchList();
-        List<String> exists = new ArrayList<>();
         //db에 이미 존재하는 게임은 추가하지않습니다
-        filterByDb(summoner, newmatchIdList, exists);
+        filterByDb(summoner, newmatchIdList);
         // 새로운 20게임중에 유저에 등록된 게임들은 리스트에서 삭제
         filterByList(newmatchIdList, currentList);
         //새로추가해야할 게임들만 추가함
@@ -67,6 +66,16 @@ public class MatchService {
         AverageCalculator averageCalculator = new AverageCalculator();
         List<ParticipantsDto> participantsDto = matchDto.info().participants();
         List<MatchPlayer> matchPlayers = new ArrayList<>();
+        saveMatchPlayers(match, averageCalculator, participantsDto, matchPlayers);
+        Match findMatch = matchRepository.findMatchByMatchId(matchId).orElseThrow(() -> new NullPointerException("경기를 찾을수없습니다"));
+        averageCalculator.getAve();
+        findMatch.getAveValue(averageCalculator);
+        findMatch.addPlayers(matchPlayers);
+        matchRepository.save(findMatch);
+        return findMatch;
+    }
+
+    private void saveMatchPlayers(Match match, AverageCalculator averageCalculator, List<ParticipantsDto> participantsDto, List<MatchPlayer> matchPlayers) {
         for (ParticipantsDto participant : participantsDto) {
             if (participant.teamId() == 100) {
                 averageCalculator.addTeam1(participant);
@@ -77,12 +86,6 @@ public class MatchService {
             matchPlayers.add(matchPlayer);
             matchPlayerRepository.save(matchPlayer);
         }
-        Match findMatch = matchRepository.findMatchByMatchId(matchId).orElseThrow(() -> new NullPointerException("경기를 찾을수없습니다"));
-        averageCalculator.getAve();
-        findMatch.getAveValue(averageCalculator);
-        findMatch.addPlayers(matchPlayers);
-        matchRepository.save(findMatch);
-        return findMatch;
     }
 
     private void filterByList(List<String> newmatchIdList, List<Match> currentList) {
@@ -93,7 +96,8 @@ public class MatchService {
         }
     }
 
-    private void filterByDb(Summoner summoner, List<String> newmatchIdList, List<String> exists) {
+    private void filterByDb(Summoner summoner, List<String> newmatchIdList) {
+        List<String> exists = new ArrayList<>();
         for (String newmatchId : newmatchIdList) {
             if (matchRepository.existsMatchByMatchId(newmatchId)) {
                 exists.add(newmatchId);
