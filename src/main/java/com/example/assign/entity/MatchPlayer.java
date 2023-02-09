@@ -55,7 +55,7 @@ public class MatchPlayer {
     private String lane;
 
     public MatchPlayer(ParticipantsDto participantsDto,Match match) {
-        this.summonerName = participantsDto.summonerName();
+        this.summonerName = participantsDto.summonerName().replaceAll("\\s+", "").toLowerCase();
         this.teamId = participantsDto.teamId();
         this.win = participantsDto.win();
         this.match = match;
