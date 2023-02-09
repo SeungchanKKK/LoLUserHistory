@@ -22,7 +22,7 @@ public class ReturnRecord20Dto {
         this.summonerName = summonerName;
         this.winRate = averageCalculator.getWinningRate();
         this.aveDuty = averageCalculator.getAveScore();
-        this.aveKDA = averageCalculator.getAveKDA();
+        this.aveKDA = (averageCalculator.getAveKills()+averageCalculator.getAveAssist())/(float)averageCalculator.getAveDeath();
         this.returnRecordDtos = returnRecordDtos;
     }
 }
