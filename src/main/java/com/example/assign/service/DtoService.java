@@ -9,6 +9,7 @@ import com.example.assign.entity.Summoner;
 import com.example.assign.repository.MatchRepository;
 import com.example.assign.util.AverageCalculator;
 import com.example.assign.util.RatingCalculator;
+import com.example.assign.util.TimeCalculator;
 import com.example.assign.util.VisonGoldKDA;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class DtoService {
     private final MatchRepository matchRepository;
 
     private final RatingCalculator ratingCalculator;
+
+    private final TimeCalculator timeCalculator;
 
     public ReturnRecord20Dto getReturn20(Summoner summoner) {
         List<ReturnRecordDto> recordDtos = new ArrayList<>();

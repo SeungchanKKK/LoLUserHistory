@@ -20,6 +20,7 @@ public class Match implements Comparable<Match> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // unix 타입 시간순 정렬때문에 엔티티에서는 변환하지않았습니다.
     @Column
     private long gameEndTimeStamp;
 

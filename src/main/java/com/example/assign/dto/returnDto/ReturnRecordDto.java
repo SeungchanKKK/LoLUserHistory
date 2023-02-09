@@ -2,6 +2,7 @@ package com.example.assign.dto.returnDto;
 
 import com.example.assign.entity.Match;
 import com.example.assign.entity.MatchPlayer;
+import com.example.assign.util.TimeCalculator;
 import com.example.assign.util.VisonGoldKDA;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +17,9 @@ public class ReturnRecordDto {
 
     String gameMode;
 
-    long gameDuration;
+    String gameDuration;
 
-    long timeStamp;
+    String timeStamp;
     int kill;
     int death;
     int assist;
@@ -33,9 +34,10 @@ public class ReturnRecordDto {
     List<MemberDto> teams= new ArrayList<>();
 
     public ReturnRecordDto(Match match, List<MemberDto> teams, MatchPlayer player, VisonGoldKDA visonGoldKDA) {
+        TimeCalculator timeCalculator = new TimeCalculator();
         this.gameMode =match.getGameMode();
-        this.gameDuration = match.getGameduration();
-        this.timeStamp = match.getGameEndTimeStamp();
+        this.gameDuration = timeCalculator.getTimefromSec(match.getGameduration());
+        this.timeStamp = timeCalculator.getTimestampToDate(match.getGameEndTimeStamp());
         this.champion = player.getChampion();
         this.kill = player.getKill();
         this.death = player.getDeath();
