@@ -44,10 +44,10 @@ public class ReturnRecordDto {
         this.assist = player.getAssist();
         this.teams = teams;
         this.win = player.isWin();
-        this.KDA = (player.getKill()+ player.getAssist())/ (float)player.getDeath();
+        this.KDA = Math.round(((player.getKill()+ player.getAssist())/ (float)player.getDeath()) * 100.0f) / 100.0f;
         this.KDAScore = visonGoldKDA.getKDAScore();
         this.VisionScore = visonGoldKDA.getVisionScore();
         this.growthScore = visonGoldKDA.getGrowthScore();
-        this.duty = visonGoldKDA.getDuty();
+        this.duty = Math.round(visonGoldKDA.getDuty() * 100.0f) / 100.0f;
     }
 }

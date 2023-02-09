@@ -27,8 +27,8 @@ public class ReturnRecord20Dto {
     public ReturnRecord20Dto(String summonerName, AverageCalculator averageCalculator, List<ReturnRecordDto> returnRecordDtos) {
         this.summonerName = summonerName;
         this.winRate = averageCalculator.getWinningRate();
-        this.aveDuty = averageCalculator.getAveScore();
-        this.aveKDA = (averageCalculator.getAveKills()+averageCalculator.getAveAssist())/(float)averageCalculator.getAveDeath();
+        this.aveDuty = Math.round((averageCalculator.getAveScore()) * 100.0f) / 100.0f;
+        this.aveKDA = Math.round(((averageCalculator.getAveKills()+averageCalculator.getAveAssist())/(float)averageCalculator.getAveDeath()) * 100.0f) / 100.0f;
         this.aveKills= averageCalculator.getAveKills();
         this.aveDeath = averageCalculator.getAveDeath();
         this.aveAssist = averageCalculator.getAveAssist();
