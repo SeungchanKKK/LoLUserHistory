@@ -29,8 +29,12 @@ public class RiotApiService {
     // summoner-v4 /lol/summoner/v4/summoners/by-name/{summonerName}
     //소환사이름으로 puuid, encryptid 등 찾기
     public SummonerDto getSummonerData(String summonerName) {
-        String url = SUMMONER_DATA_RIOT_URL + summonerName + "?api_key=" + API_KEY;
-        return new RestTemplate().getForObject(url, SummonerDto.class);
+        try {
+            String url = SUMMONER_DATA_RIOT_URL + summonerName + "?api_key=" + API_KEY;
+            return new RestTemplate().getForObject(url, SummonerDto.class);
+        }catch (Exception e){
+            throw new ExternalApiCallException(e.getMessage());
+        }
     }
     // match-v5 /lol/match/v5/matches/by-puuid/{puuid}/ids
     //puuid 를 통해 Matchlist 를 찾기
