@@ -1,6 +1,54 @@
 # YourggAssign
 롤 전적 20게임을 구하는 과제입니다
 
+# Api return
+
+ “/api/summoner/{소환사명}”
+ 
+ ## ReturnRecord20Dto
+ ### 20게임 전체 통계와 각20게임의 데이터리스트가 담긴dto 입니다
+|자료형|변수명|설명|
+|------|---|---|
+|String|summonerName|소환사명|
+|float|winRate|20게임승률|
+|float|aveDuty|20게임 평균 ~인분|
+|float|aveKDA|20게임 평균KDA|
+|float|aveKills|20게임 평균킬|
+|float|aveDeath|20게임 평균데스|
+|float|aveAssist|20게임 평균어시스트|
+|List[ReturnRecordDto]|returnRecordDtos|각게임별 소환사의 통계데이터|
+
+
+## ReturnRecordDto
+### 각게임별 소환사의 통계와 통계점수등을 보여줍니다
+|자료형|변수명|설명|
+|------|---|---|
+|String|champion|챔피언|
+|String|gameMode|게임모드|
+|String|gameDuration|게임시간(x분 x초)|
+|String|timeStamp|게임끝난시간 "2023-02-09 23:05:21",|
+|int|kill|킬|
+|int|death|데스|
+|int|assist|어시스트|
+|boolean|win|승패여부|
+|float|KDA|KDA|
+|int|KDAScore|KDA기반점수|
+|int|VisionScore|시야점수|
+|int|growthScore|성장점수|
+|int|combatScore|전투점수|
+|float|duty|~인분|
+|List[MemberDto]|teams|게임 내 유저들의 정보|
+
+
+## MemberDto
+### 게임 내 유저의 정보
+|자료형|변수명|설명|
+|------|---|---|
+|String|name|소환사명|
+|String|champion|챔피언|
+|int|team|플레이어의소속팀|
+
+
 # Service Flow
 ![File](https://user-images.githubusercontent.com/105182277/217821428-ea85edeb-2b46-493d-a6b6-711deca39c7e.jpg)
 
