@@ -25,11 +25,6 @@ public class MatchPlayer {
     @Column
     private boolean win;
 
-    @ManyToOne
-    @JoinColumn(name = "matchId")
-    @JsonBackReference(value = "")
-    private Match match;
-
     @Column
     private int kill;
 
@@ -54,11 +49,10 @@ public class MatchPlayer {
     @Column
     private String lane;
 
-    public MatchPlayer(ParticipantsDto participantsDto,Match match) {
+    public MatchPlayer(ParticipantsDto participantsDto) {
         this.summonerName = participantsDto.summonerName().replaceAll("\\s+", "").toLowerCase();
         this.teamId = participantsDto.teamId();
         this.win = participantsDto.win();
-        this.match = match;
         this.kill = participantsDto.kills();
         this.Assist = participantsDto.assists();
         this.Death = participantsDto.deaths();

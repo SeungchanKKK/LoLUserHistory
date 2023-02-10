@@ -81,7 +81,7 @@ public class Match implements Comparable<Match> {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "matchplayer_id")
-    @JsonManagedReference(value = "matchPlayer-match-FK")
+    @JsonManagedReference(value = "matchplayer-match-FK")
     private List<MatchPlayer> matchPlayers = new ArrayList<>();
 
     public Match(MatchDto matchDto,String matchId){

@@ -82,7 +82,7 @@ public class MatchService {
             } else {
                 averageCalculator.addTeam2(participant);
             }
-            MatchPlayer matchPlayer = new MatchPlayer(participant, match);
+            MatchPlayer matchPlayer = new MatchPlayer(participant);
             matchPlayers.add(matchPlayer);
             matchPlayerRepository.save(matchPlayer);
         }
