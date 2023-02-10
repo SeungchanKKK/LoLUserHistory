@@ -24,6 +24,7 @@ public class Datafacade {
     private final DtoService dtoService;
 
     public ReturnRecord20Dto get20Data(String summonerName) {
+        summonerName.replaceAll("\\s+", "").toLowerCase();
         //db에 Summoner 조회후 summoner 가 없을시 , 즉 첫조회일때 db에 객체 저장
         if (!summonerRepository.existsSummonerBySummonerName(summonerName)) {
             summonerService.firstEnroll(summonerName);
