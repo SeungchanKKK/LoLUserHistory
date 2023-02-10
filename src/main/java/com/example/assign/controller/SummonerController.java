@@ -15,7 +15,7 @@ public class SummonerController {
     private final Datafacade datafacade;
     //20게임 전적호출
     @GetMapping("/summoner/{summonerName}")
-    public ResponseEntity<ReturnRecord20Dto> record20Summoner(@PathVariable String summonerName) {
-        return ResponseEntity.ok(datafacade.get20Data(summonerName));
+    public ResponseEntity<?> record20Summoner(@PathVariable String summonerName) {
+        return ResponseEntity.status(200).body(datafacade.get20Data(summonerName));
     }
 }
