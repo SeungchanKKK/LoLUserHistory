@@ -22,7 +22,8 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-
+      hibernate:
+        default_batch_fetch_size: 1000
 riot:
   api:
     key: ENC(vtzgWQRmgbuuHcOg0z48XgOkQHXAqjyvNQCvfqEVwSNldxJO4pGrFZ2tkg/zw/8Uw2V8ylsZP7s=)
