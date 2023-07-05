@@ -1,4 +1,4 @@
-# YourggAssign
+# LoLUserHistory
 롤 사용자의 전적과 게임통계를 구하는 api 서버입니다
 
 # Api return
