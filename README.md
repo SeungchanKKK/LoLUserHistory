@@ -1,5 +1,5 @@
 # YourggAssign
-롤 전적 20게임을 구하는 과제입니다
+롤 사용자의 전적과 게임통계를 구하는 api 서버입니다
 
 # Api return
 
